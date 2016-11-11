@@ -2,6 +2,7 @@
   "name": "codelego/phpfox-eventmanager",
   "description": "PhpFox Event Component",
   "type": "library",
+  "license": "MIT",
   "authors": [
     {
       "name": "Nam Nguyen",
