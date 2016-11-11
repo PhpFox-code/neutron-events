@@ -1,6 +1,6 @@
 {
   "name": "codelego/phpfox-event-manager",
-  "description": "Event listener pattern library",
+  "description": "Event listener pattern library for phpfox framework.",
   "type": "library",
   "license": "MIT",
   "authors": [
