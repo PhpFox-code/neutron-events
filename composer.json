@@ -1,6 +1,6 @@
 {
-  "name": "codelego/phpfox-eventmanager",
-  "description": "PhpFox Event Component",
+  "name": "codelego/phpfox-event-manager",
+  "description": "Event listener pattern library",
   "type": "library",
   "license": "MIT",
   "authors": [
@@ -13,6 +13,11 @@
   "autoload": {
     "psr-4": {
       "Phpfox\\EventManager\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Phpfox\\EventManager\\": "test/"
     }
   },
   "require": {}
