@@ -33,6 +33,42 @@ class EventManager implements EventManagerInterface
     }
 
     /**
+     * @param EventInterface $event
+     * @param callable       $callback
+     *
+     * @return Response
+     */
+    public function triggerListeners(EventInterface $event, $callback = null)
+    {
+        $name = $event->getName();
+
+        // Initial value of stop propagation flag should be false
+        $event->stopPropagation(false);
+
+        $responses = new Response();
+
+        foreach ($this->getListenersByEventName($name) as $listener) {
+            $response = $listener($event);
+            $responses->push($response);
+
+            // If the event was asked to stop propagating, do so
+            if ($event->propagationIsStopped()) {
+                $responses->setStopped(true);
+                break;
+            }
+
+            // If the result causes our validation callback to return true,
+            // stop propagation
+            if ($callback && $callback($response)) {
+                $responses->setStopped(true);
+                break;
+            }
+        }
+
+        return $responses;
+    }
+
+    /**
      * @inheritdoc
      */
     public function triggerEvent(EventInterface $event)
@@ -79,42 +115,6 @@ class EventManager implements EventManagerInterface
     public function detach($listener, $eventName = null)
     {
         // TODO: Implement detach() method.
-    }
-
-    /**
-     * @param EventInterface $event
-     * @param callable       $callback
-     *
-     * @return Response
-     */
-    public function triggerListeners(EventInterface $event, $callback = null)
-    {
-        $name = $event->getName();
-
-        // Initial value of stop propagation flag should be false
-        $event->stopPropagation(false);
-
-        $responses = new Response();
-
-        foreach ($this->getListenersByEventName($name) as $listener) {
-            $response = $listener($event);
-            $responses->push($response);
-
-            // If the event was asked to stop propagating, do so
-            if ($event->propagationIsStopped()) {
-                $responses->setStopped(true);
-                break;
-            }
-
-            // If the result causes our validation callback to return true,
-            // stop propagation
-            if ($callback && $callback($response)) {
-                $responses->setStopped(true);
-                break;
-            }
-        }
-
-        return $responses;
     }
 
     /**

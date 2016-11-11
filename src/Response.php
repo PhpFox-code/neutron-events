@@ -1,6 +1,7 @@
 <?php
 
 namespace Phpfox\EventManager;
+
 use SplStack;
 
 /**
