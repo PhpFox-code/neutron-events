@@ -3,57 +3,80 @@
 namespace Phpfox\EventManager;
 
 /**
- * Interface EventInterface
+ * Representation of an event
  *
  * @package Phpfox\EventManager
  */
 interface EventInterface
 {
     /**
+     * Get event name
+     *
      * @return string
      */
     public function getName();
 
     /**
-     * @param string $name
+     * Get target/context from which event was triggered
      *
-     * @return $this
-     */
-    public function setName($name);
-
-    /**
-     * @return mixed
+     * @return null|string|object
      */
     public function getTarget();
 
     /**
-     * @param mixed $target
+     * Get parameters passed to the event
      *
-     * @return $this
-     */
-    public function setTarget($target);
-
-    /**
      * @return array
      */
     public function getParams();
 
     /**
-     * @param array $params
+     * Get a single parameter by name
      *
-     * @return $this
+     * @param  string $name
+     *
+     * @return mixed
      */
-    public function setParams($params);
+    public function getParam($name);
 
     /**
-     * @return boolean
+     * Set the event name
+     *
+     * @param  string $name
+     *
+     * @return void
      */
-    public function isStopPropagation();
+    public function setName($name);
 
     /**
-     * @param boolean $flag
+     * Set the event target
      *
-     * @return $this
+     * @param  null|string|object $target
+     *
+     * @return void
      */
-    public function setStopPropagation($flag);
+    public function setTarget($target);
+
+    /**
+     * Set event parameters
+     *
+     * @param  array $params
+     *
+     * @return void
+     */
+    public function setParams( $params);
+
+    /**
+     * Indicate whether or not to stop propagating this event
+     *
+     * @param  bool $flag
+     */
+    public function stopPropagation($flag);
+
+    /**
+     * Has this event indicated event propagation should stop?
+     *
+     * @return bool
+     */
+    public function isPropagationStopped();
 }

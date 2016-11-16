@@ -12,7 +12,7 @@ class Event implements EventInterface
     /**
      * @var string
      */
-    protected $name;
+    protected $name = '';
 
     /**
      * @var mixed
@@ -27,7 +27,7 @@ class Event implements EventInterface
     /**
      * @var bool
      */
-    protected $stopPropagation = false;
+    protected $stopped = false;
 
     /**
      * Event constructor.
@@ -105,15 +105,40 @@ class Event implements EventInterface
      */
     public function isStopPropagation()
     {
-        return $this->stopPropagation;
+        return $this->stopped;
     }
 
     /**
-     * @inheritdoc
+     * @param string $name
+     *
+     * @return bool
      */
-    public function setStopPropagation($flag)
+    public function getParam($name)
     {
-        $this->stopPropagation = (bool)$flag;
-        return $this;
+        return isset($this->params[$name]) ? $this->params[$name] : null;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isPropagationStopped()
+    {
+        return $this->stopped;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function stopPropagation($flag)
+    {
+        return $this->stopped = (bool)$flag;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
     }
 }

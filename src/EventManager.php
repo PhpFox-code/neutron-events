@@ -24,12 +24,15 @@ class EventManager implements EventManagerInterface
     /**
      * @inheritdoc
      */
-    public function trigger($eventName, $target = null, $params = [])
+    public function trigger($event, $target = null, $params = [])
     {
-        if (empty($this->events[$eventName])) {
+        if (is_string($event) && empty($this->events[$event->getName()])) {
             return null;
         }
-        return $this->triggerListeners(new Event($eventName, $target, $params));
+        $event = ($event instanceof EventInterface) ? $event
+            : new Event($event, $target, $params);
+
+        return $this->triggerListeners($event);
     }
 
     /**
@@ -85,8 +88,8 @@ class EventManager implements EventManagerInterface
      */
     public function triggerUntil(
         $callback,
-        $eventName,
         $target = null,
+        $eventName,
         $argv = []
     ) {
         // TODO: Implement triggerUntil() method.

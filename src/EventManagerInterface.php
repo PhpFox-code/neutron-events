@@ -10,70 +10,45 @@ namespace Phpfox\EventManager;
 interface EventManagerInterface
 {
     /**
-     * @param string $eventName
-     * @param mixed  $target
-     * @param array  $params
+     * Attaches a listener to an event
      *
-     * @return Response|null
+     * @param string   $event    the event to attach too
+     * @param callable $callback a callable function
+     * @param int      $priority the priority at which the $callback executed
+     *
+     * @return bool true on success false on failure
      */
-    public function trigger($eventName, $target = null, $params = []);
-
+    public function attach($event, $callback, $priority = 0);
 
     /**
-     * @param string $callback
-     * @param string $eventName
-     * @param mixed  $target
-     * @param array  $argv
+     * Detaches a listener from an event
      *
-     * @return Response|null
+     * @param string   $event    the event to attach too
+     * @param callable $callback a callable function
+     *
+     * @return bool true on success false on failure
      */
-    public function triggerUntil(
-        $callback,
-        $eventName,
-        $target = null,
-        $argv = []
-    );
+    public function detach($event, $callback);
 
     /**
-     * @param EventInterface $event
+     * Clear all listeners for a given event
      *
-     * @return Response|null
+     * @param  string $event
+     *
+     * @return void
      */
-    public function triggerEvent(EventInterface $event);
+    public function clearListeners($event);
 
     /**
-     * @param string         $callback
-     * @param EventInterface $event
+     * Trigger an event
      *
-     * @return Response|null
-     */
-    public function triggerEventUntil(
-        $callback,
-        EventInterface $event
-    );
-
-    /**
-     * @param string $eventName
-     * @param string $listener
-     * @param int    $priority
+     * Can accept an EventInterface or will create one if not passed
      *
-     * @return $this
-     */
-    public function attach($eventName, $listener, $priority = 1);
-
-
-    /**
-     * @param string $listener
-     * @param string $eventName
+     * @param  string|EventInterface $event
+     * @param  object|string         $target
+     * @param  array|object          $argv
      *
-     * @return $this
+     * @return mixed
      */
-    public function detach($listener, $eventName = null);
-
-    /**
-     * @param $eventName
-     *
-     * @return $this
-     */
-    public function clearListeners($eventName);
+    public function trigger($event, $target = null, $argv = []);
 }
