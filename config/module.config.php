@@ -3,9 +3,7 @@
 namespace Phpfox\EventManager;
 
 return [
-    'widgets'   => [],
-    'aliases'   => [],
-    'factories' => [
-        'events' => EventManagerFactory::class,
+    'services' => [
+        'events' => EventManager::class,
     ],
 ];

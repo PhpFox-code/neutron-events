@@ -64,7 +64,7 @@ interface EventInterface
      *
      * @return void
      */
-    public function setParams( $params);
+    public function setParams($params);
 
     /**
      * Indicate whether or not to stop propagating this event

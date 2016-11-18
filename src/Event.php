@@ -48,24 +48,6 @@ class Event implements EventInterface
         }
     }
 
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-        return $this;
-    }
-
     /**
      * @inheritdoc
      */
@@ -140,5 +122,22 @@ class Event implements EventInterface
     public function __toString()
     {
         return $this->getName();
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
     }
 }
