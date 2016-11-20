@@ -30,17 +30,12 @@ class EventManager implements EventManagerInterface
      * @var EventManager
      */
     private static $singleton;
+
+    public function initialize()
+    {
+
+    }
     
-    private function __construct()
-    {
-
-    }
-
-    private function initialize()
-    {
-
-    }
-
     public static function instance()
     {
         if (null == self::$singleton) {
