@@ -7,6 +7,11 @@ namespace Phpfox\EventManager;
  *
  * @package Phpfox\EventManager
  */
+/**
+ * Class EventManager
+ *
+ * @package Phpfox\EventManager
+ */
 class EventManager implements EventManagerInterface
 {
     /**
@@ -22,8 +27,30 @@ class EventManager implements EventManagerInterface
     protected $events = [];
 
     /**
-     * @inheritdoc
+     * @var EventManager
      */
+    private static $singleton;
+    
+    private function __construct()
+    {
+
+    }
+
+    private function initialize()
+    {
+
+    }
+
+    public static function instance()
+    {
+        if (null == self::$singleton) {
+            self::$singleton = new static();
+            self::$singleton->initialize();
+        }
+        return self::$singleton;
+
+    }
+
     public function trigger($event, $target = null, $params = [])
     {
         if (is_string($event) && empty($this->events[$event->getName()])) {
@@ -35,13 +62,7 @@ class EventManager implements EventManagerInterface
         return $this->triggerListeners($event);
     }
 
-    /**
-     * @param EventInterface $event
-     * @param callable       $callback
-     *
-     * @return Response
-     */
-    public function triggerListeners(EventInterface $event, $callback = null)
+    public function triggerListeners(EventInterface $event)
     {
         $name = $event->getName();
 
@@ -59,21 +80,11 @@ class EventManager implements EventManagerInterface
                 $responses->setStopped(true);
                 break;
             }
-
-            // If the result causes our validation callback to return true,
-            // stop propagation
-            if ($callback && $callback($response)) {
-                $responses->setStopped(true);
-                break;
-            }
         }
 
         return $responses;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function triggerEvent(EventInterface $event)
     {
         if (empty($this->events[$event->getName()])) {
@@ -83,9 +94,6 @@ class EventManager implements EventManagerInterface
         return $this->triggerListeners($event);
     }
 
-    /**
-     * @inheritdoc
-     */
     public function triggerUntil(
         $callback,
         $target = null,
@@ -95,34 +103,22 @@ class EventManager implements EventManagerInterface
         // TODO: Implement triggerUntil() method.
     }
 
-    /**
-     * @inheritdoc
-     */
     public function triggerEventUntil($callback, EventInterface $event)
     {
         // TODO: Implement triggerEventUntil() method.
     }
 
-    /**
-     * @inheritdoc
-     */
     public function attach($eventName, $listener, $priority = 1)
     {
         $this->events[$eventName][((int)$priority) . '.0'][] = $listener;
         return $this;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function detach($listener, $eventName = null)
     {
         // TODO: Implement detach() method.
     }
 
-    /**
-     * @inheritdoc
-     */
     public function clearListeners($eventName)
     {
         if (isset($this->events[$eventName])) {
@@ -130,6 +126,4 @@ class EventManager implements EventManagerInterface
         }
         return $this;
     }
-
-
 }

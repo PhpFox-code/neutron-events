@@ -48,93 +48,58 @@ class Event implements EventInterface
         }
     }
 
-    /**
-     * @inheritdoc
-     */
     public function getTarget()
     {
         return $this->target;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function setTarget($target)
     {
         $this->target = $target;
         return $this;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function getParams()
     {
         return $this->params;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function setParams($params)
     {
         $this->params = $params;
         return $this;
     }
 
-    /**
-     * @return boolean
-     */
     public function isStopPropagation()
     {
         return $this->stopped;
     }
 
-    /**
-     * @param string $name
-     *
-     * @return bool
-     */
     public function getParam($name)
     {
         return isset($this->params[$name]) ? $this->params[$name] : null;
     }
 
-    /**
-     * @return boolean
-     */
     public function isPropagationStopped()
     {
         return $this->stopped;
     }
 
-    /**
-     * @return boolean
-     */
     public function stopPropagation($flag)
     {
         return $this->stopped = (bool)$flag;
     }
 
-    /**
-     * @return string
-     */
     public function __toString()
     {
         return $this->getName();
     }
 
-    /**
-     * @return string
-     */
     public function getName()
     {
         return $this->name;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function setName($name)
     {
         $this->name = $name;

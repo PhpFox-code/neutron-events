@@ -4,6 +4,8 @@ namespace Phpfox\EventManager;
 
 return [
     'services' => [
-        'events' => EventManager::class,
+        'map' => [
+            'events' => [null, EventManager::class,],
+        ],
     ],
 ];
