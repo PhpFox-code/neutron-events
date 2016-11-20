@@ -2,11 +2,11 @@
 
 namespace Phpfox\EventManager;
 
-/**
- * Class EventManager
- *
- * @package Phpfox\EventManager
- */
+    /**
+     * Class EventManager
+     *
+     * @package Phpfox\EventManager
+     */
 /**
  * Class EventManager
  *
@@ -33,9 +33,22 @@ class EventManager implements EventManagerInterface
 
     public function initialize()
     {
-
+        $this->events = config('events.map');
     }
-    
+
+    public function onApplicationConfigChanged()
+    {
+        $this->events = [];
+        $listeners = config('events.map');
+
+        foreach ($listeners as $name => $events) {
+            foreach ($events as $event) {
+                $this->events[$event][] = $name;
+            }
+        }
+        return $this;
+    }
+
     public static function instance()
     {
         if (null == self::$singleton) {
@@ -48,9 +61,10 @@ class EventManager implements EventManagerInterface
 
     public function trigger($event, $target = null, $params = [])
     {
-        if (is_string($event) && empty($this->events[$event->getName()])) {
+        if (is_string($event) && empty($this->events[$event])) {
             return null;
         }
+
         $event = ($event instanceof EventInterface) ? $event
             : new Event($event, $target, $params);
 
@@ -64,20 +78,20 @@ class EventManager implements EventManagerInterface
         // Initial value of stop propagation flag should be false
         $event->stopPropagation(false);
 
-        $responses = new Response();
+        $response = new Response();
 
-        foreach ($this->getListenersByEventName($name) as $listener) {
-            $response = $listener($event);
-            $responses->push($response);
+        foreach ($this->events[$name] as $listener) {
+
+            service($listener)->{$name}($event, $response);
 
             // If the event was asked to stop propagating, do so
-            if ($event->propagationIsStopped()) {
-                $responses->setStopped(true);
+            if ($event->isPropagationStopped()) {
+                $response->setStopped(true);
                 break;
             }
         }
 
-        return $responses;
+        return $response;
     }
 
     public function triggerEvent(EventInterface $event)
