@@ -10,9 +10,7 @@ return [
     ],
     'events'   => [
         'map' => [
-            'eventManager'            => ['onApplicationConfigChanged'],
-            'onAssetManagerGetHeader' => ['eventManager',],
-            'onAssetManagerGetFooter' => ['eventManager',],
+            'onApplicationConfigChanged' => ['eventManager'],
         ],
     ],
 ];
