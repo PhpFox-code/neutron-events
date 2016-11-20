@@ -31,29 +31,16 @@ class EventManager implements EventManagerInterface
      */
     private static $singleton;
 
-    public function initialize()
+    public function reset()
     {
-        $this->events = config('events.map');
-    }
-
-    public function onApplicationConfigChanged()
-    {
-        $this->events = [];
-        $listeners = config('events.map');
-
-        foreach ($listeners as $name => $events) {
-            foreach ($events as $event) {
-                $this->events[$event][] = $name;
-            }
-        }
-        return $this;
+        $this->events = config('events');
     }
 
     public static function instance()
     {
         if (null == self::$singleton) {
             self::$singleton = new static();
-            self::$singleton->initialize();
+            self::$singleton->reset();
         }
         return self::$singleton;
 
