@@ -1,5 +1,5 @@
 {
-  "name": "codelego/phpfox-event-manager",
+  "name": "codelego/phpfox-events",
   "description": "Event listener pattern library for phpfox framework.",
   "type": "library",
   "license": "MIT",
