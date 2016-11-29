@@ -1,11 +1,11 @@
 <?php
 
-namespace Phpfox\EventManager;
+namespace Neutron\EventManager;
 
 /**
  * Representation of an event
  *
- * @package Phpfox\EventManager
+ * @package Neutron\EventManager
  */
 interface EventInterface
 {

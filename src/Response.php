@@ -1,13 +1,13 @@
 <?php
 
-namespace Phpfox\EventManager;
+namespace Neutron\EventManager;
 
 use SplStack;
 
 /**
  * Class Response
  *
- * @package Phpfox\EventManager
+ * @package Neutron\EventManager
  */
 class Response extends SplStack
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Phpfox\EventManager;
+namespace Neutron\EventManager;
 
 return [
     'services' => [

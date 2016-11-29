@@ -1,11 +1,11 @@
 <?php
 
-namespace Phpfox\EventManager;
+namespace Neutron\EventManager;
 
 /**
  * Class Event
  *
- * @package Phpfox\EventManager
+ * @package Neutron\EventManager
  */
 class Event implements EventInterface
 {
