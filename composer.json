@@ -1,5 +1,5 @@
 {
-  "name": "codelego/phpfox-events",
+  "name": "codelego/neutron-events",
   "description": "Event listener pattern library for phpfox framework.",
   "type": "library",
   "license": "MIT",
